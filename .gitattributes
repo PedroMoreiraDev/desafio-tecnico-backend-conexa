@@ -1,0 +1,33 @@
+# Define que arquivos de texto devem ter finais de linha normalizados (LF no repositório)
+* text=auto
+
+# Configurações específicas para tipos de arquivos
+*.sh text eol=lf          # Scripts Shell - apenas LF (Unix/Linux)
+*.properties text eol=lf  # Arquivos de configuração - apenas LF
+*.yml text eol=lf         # Arquivos YAML - apenas LF
+*.yaml text eol=lf
+*.json text eol=lf        # Arquivos JSON - apenas LF
+*.java text eol=lf        # Código Java - apenas LF
+*.md text eol=lf          # Arquivos Markdown - apenas LF
+
+*.bat text eol=crlf       # Scripts Batch - CRLF (Windows)
+*.cmd text eol=crlf       # Comandos Windows - CRLF
+
+# Binários não devem ser alterados
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.zip binary
+*.jar binary
+*.war binary
+*.exe binary
+
+# Maven Wrapper
+mvnw text eol=lf
+mvnw.cmd text eol=crlf
+.mvn/** text eol=lf
+
+# Ignorar normalização para arquivos gerados pelo sistema
+*.log -text
