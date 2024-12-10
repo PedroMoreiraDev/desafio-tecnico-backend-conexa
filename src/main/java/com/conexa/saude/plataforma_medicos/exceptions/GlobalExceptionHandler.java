@@ -1,6 +1,7 @@
 package com.conexa.saude.plataforma_medicos.exceptions;
 
 import com.conexa.saude.plataforma_medicos.dto.ErrorMessageDTO;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,22 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, ex.getStatus());
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorMessageDTO> handleConstraintViolationException(ConstraintViolationException ex) {
+        List<String> details = ex.getConstraintViolations().stream()
+                .map(violation -> String.format("Campo '%s': %s",
+                        violation.getPropertyPath(),
+                        violation.getMessage()))
+                .toList();
+
+        ErrorMessageDTO error = ErrorMessageDTO.builder()
+                .code("API-PLATAFORMA-MEDICOS-VALIDATION-ERROR")
+                .message("Houve erros de validação nos dados enviados.")
+                .details(details)
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessageDTO> handleGeneralException(Exception ex) {
