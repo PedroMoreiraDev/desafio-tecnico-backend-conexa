@@ -91,3 +91,57 @@ Necessário descrever, ou prover, todas as dependências e ações necessárias 
 **Lembre-se que uma aplicação boa é uma aplicação bem testada;**
 
 Em caso de dúvidas sobre o desafio, entre em contato.
+
+=======================================================================
+
+Para testar:
+Acesse a pasta principal do projeto
+
+execute o comando ```docker-compose up --build -d```
+
+utilize os endpoints fornecidos apontando para o localhost 9090.
+
+Lembre-se de modificar o token quando necessário.
+
+````
+curl --location 'http://localhost:9090/api/v1/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "email": "medic2o@email.com",
+  "senha": "teste111",
+  "confirmacaoSenha": "teste111",
+  "especialidade": "Cardiologista",
+  "cpf": "438.995.278-10",
+  "dataNascimento": "10/03/1980",
+  "telefone": "(21) 3232-6565"
+}'
+````
+
+
+````
+curl --location 'http://localhost:9090/api/v1/login' \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+    "email": "medic2o@email.com",
+    "senha": "teste111"
+  }'
+````
+
+````
+curl --location 'http://localhost:9090/api/v1/attendance' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1lZGljMm9AZW1haWwuY29tIiwiZXhwIjoxNzMzNzY0MjkxfQ.edkmP_Av0NPQSISuU57SnyZ3qpz1E57r3ODDx0AwxNI' \
+--header 'Content-Type: application/json' \
+--data '{
+  "dataHora": "2025-08-05 11:04:00",
+  "paciente": {
+    "nome": "João Castro",
+    "cpf": "438.995.278-10"
+  }
+}'
+````
+````
+curl --location --request POST 'http://localhost:9090/api/v1/logoff' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1lZGljMm9AZW1haWwuY29tIiwiZXhwIjoxNzMzNzI2NTkxfQ.qhE0zHku_bCpBZ6j7bondNbLd7bhQRfFdgoou_JikMc'
+````
+
+
